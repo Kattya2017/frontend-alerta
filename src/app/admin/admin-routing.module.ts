@@ -15,6 +15,7 @@ import { TipoAlertaComponent } from './tipo-alerta/tipo-alerta.component';
 import { UnidadOrganicaComponent } from './unidad-organica/unidad-organica.component';
 import { UsuarioComponent } from './usuario/usuario.component';
 import { AdministradoComponent } from './administrado/administrado.component';
+//import { AdminGuard } from '../guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -35,7 +36,8 @@ const routes: Routes = [
       {path:'tipoalerta', component:TipoAlertaComponent},
       {path:'unidadorganica', component:UnidadOrganicaComponent},
       {path:'usuario', component:UsuarioComponent},
-    ]
+    ],
+    //canActivateChild:[AdminGuard]
   }
 ];
 
