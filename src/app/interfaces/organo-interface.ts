@@ -7,14 +7,15 @@ export interface ResultOrgano {
 }
 
 export interface Resp {
-  id:     number;
-  nombre: string;
-  estado: number;
-  Sede: Sede;
+  id:      number;
+  nombre:  string;
+  estado:  number;
+  id_sede: number;
+  Sede:    Sede;
 }
 
 export interface Sede {
-  id: number;
+  id:     number;
   nombre: string;
   estado: number;
 }

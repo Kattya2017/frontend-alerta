@@ -38,6 +38,8 @@ export class OrganoComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    this.mostrarOrgano();
+    this.mostrarSede();
   }
 
 
@@ -53,36 +55,37 @@ export class OrganoComponent implements OnInit{
         },
       });
     }
-    this.organoService.getOrgano(this.estado).subscribe(
-      (data:ResultOrgano) =>{
+    this.organoService.getOrgano(this.estado).subscribe({
+      next:(data:ResultOrgano) =>{
         this.listOrgano = data.resp;
-        this.carga = false;
-        if (!this.carga) {
-          Swal.close();
-        }
         console.log(this.listOrgano);
-      },
-      (error) =>{
+        
         this.carga = false;
-        if (!this.carga) {
+        if(!this.carga){
           Swal.close();
         }
-        console.log(error);
+      },
+      error:(error) =>{
+        this.carga = false;
+        if(!this.carga){
+          Swal.close();
+        }
+        console.log(error);  
       }
-    )
+    });
   }
 
   
   mostrarSede(){
-    this.sedeService.getSede().subscribe(
-      (data: ResultSede) =>{
+    this.sedeService.getSede().subscribe({
+      next:(data: ResultSede) =>{
         this.listSede = data.resp;
-        console.log(this.listSede);
+        //console.log(this.listSede);
       },
-      (error) =>{
+      error:(error) =>{
         console.log(error);
       }
-    );
+    });
   }
 
 
@@ -128,10 +131,12 @@ export class OrganoComponent implements OnInit{
     });
   }
 
-  eliminarUsuario (id:number, estado:number){
+
+
+  eliminarOrgano (id:number, estado:number){
     Swal.fire({
       title:'Estas seguro?',
-      text: estado===1? 'El usuario sera habilitado':'El usuario sera deshabilitado',
+      text: estado===1? 'El organo sera habilitado':'El organo sera deshabilitado',
       icon:'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -166,6 +171,21 @@ export class OrganoComponent implements OnInit{
   }
 
 
+  mostrarOrganoId(id:number){
+    this.organoService.getIdOrgano(id).subscribe({
+      next:(data)=>{
+        this.organoEditarForm.setValue({
+          nombre: data.resp.nombre,
+          sede:data.resp.id_sede,
+        });
+        this.ids = data.resp.id;
+      },
+      error:(error) =>{
+        console.log(error);
+      },
+    });
+  }
+
 
   obtenerOrganoId (id: number) {
     this.organoService.getIdOrgano(id).subscribe({
@@ -193,7 +213,4 @@ export class OrganoComponent implements OnInit{
       sede: '',
     });
   }
-
-
-
 }

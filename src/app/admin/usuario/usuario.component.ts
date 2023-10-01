@@ -222,7 +222,7 @@ cancelar(){
     apellido: '',
     usuario: '',
     password:'',
-    rol: ''
+    id_rol: ''
   });
 
   this.usuarioEditarForm.setValue({
@@ -230,7 +230,7 @@ cancelar(){
     apellido: '',
     usuario: '',
     password:'',
-    rol: ''
+    id_rol: ''
   });
 }
 
